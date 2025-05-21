@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
 public interface CartRepository extends JpaRepository<Cart, Integer> {
     List<Cart> findByCustomer(Customer customer);
     List<Cart> findByProduct(Product product);
-    Optional<Cart> findByCustomerAndproduct(Customer customer, Product product);
+    Optional<Cart> findByCustomerAndProduct(Customer customer, Product product);
 }
