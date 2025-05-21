@@ -29,6 +29,8 @@ public class Notification {
     private String message;
 
     private LocalDate sentDate;
+    
+    private Boolean isRead = false;
 
     @Id
     @Column(name = "\"Notification_ID\"", nullable = false)
@@ -77,10 +79,19 @@ public class Notification {
     public LocalDate getSentDate() {
         return sentDate;
     }
-
-    public void setRead(boolean b) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRead'");
+    
+    @NotNull
+    @ColumnDefault("false")
+    @Column(name = "\"Is_Read\"", nullable = false)
+    public Boolean getIsRead() {
+        return isRead;
+    }
+    
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
     }
 
+    public void setRead(boolean b) {
+        this.isRead = b;
+    }
 }

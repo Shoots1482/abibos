@@ -28,7 +28,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
     List<Notification> findBySentDateBetween(LocalDate startDate, LocalDate endDate);
 
     // Find unread notifications
-    @Query("SELECT n FROM Notification n WHERE n.read = false")
+    @Query("SELECT n FROM Notification n WHERE n.isRead = false")
     List<Notification> findUnreadNotifications();
 
     // Find notifications by message content
@@ -36,6 +36,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
     List<Notification> searchByMessage(@Param("searchTerm") String searchTerm);
 
     // Count unread notifications for a customer
-    @Query("SELECT COUNT(n) FROM Notification n WHERE n.customer.id = :customerId AND n.read = false")
+    @Query("SELECT COUNT(n) FROM Notification n WHERE n.customer.id = :customerId AND n.isRead = false")
     Long countUnreadByCustomerId(@Param("customerId") Integer customerId);
 }
