@@ -29,6 +29,8 @@ public class Customer {
 
     private String email;
 
+    private boolean active = true;
+
     private Set<Address> addresses = new LinkedHashSet<>();
 
     private Set<Cart> carts = new LinkedHashSet<>();
@@ -51,20 +53,29 @@ public class Customer {
         return id;
     }
 
+    @Column(name = "\"F_Name\"")
     public String getFName() {
         return fName;
     }
 
+    @Column(name = "\"M_Name\"")
     public String getMName() {
         return mName;
     }
 
+    @Column(name = "\"L_Name\"")
     public String getLName() {
         return lName;
     }
 
     @Column(name = "\"Active\"", nullable = false)
-    private boolean active = true;
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @NotNull
     @Column(name = "\"Gender\"", nullable = false, length = Integer.MAX_VALUE)
@@ -125,12 +136,8 @@ public class Customer {
         return wishlists;
     }
 
-    // Add getter and setter for Active
+    // For compatibility with boolean property conventions
     public boolean isActive() {
         return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }
