@@ -1,0 +1,80 @@
+# Guide for Fixing JPQL Query Issues in Spring Data JPA
+
+This guide will help you systematically address JPQL query errors where the query references fields that don't exist in the corresponding entities.
+
+## Common Error Patterns
+
+1. **Missing Entity Fields**: The query references a field that doesn't exist in the entity class.
+   - Error example: `Could not resolve attribute 'status' of 'com.example.demo.entities.SupplyOrder'`
+   - Fix: Add the missing field to the entity with appropriate annotations.
+
+2. **Field Name Mismatches**: The query uses the wrong field name.
+   - Error example: Using `read` instead of `isRead` or `andproduct` instead of `AndProduct`.
+   - Fix: Correct the field name in the query or rename the field in the entity.
+
+3. **Missing Property Accessors**: The entity has the field but is missing proper getters/setters.
+   - Fix: Add the appropriate accessor methods.
+
+## Systematic Fix Process
+
+For each repository interface:
+
+1. Examine all `@Query` annotations
+2. Identify the entity classes referenced in the queries
+3. Check if all fields referenced in the queries exist in those entities
+4. If a field is missing:
+   - Add the field to the entity class
+   - Include appropriate JPA annotations (@Column, @NotNull, etc.)
+   - Add getter and setter methods
+5. If a field name is wrong:
+   - Update the query to use the correct field name
+
+### Example Corrections:
+
+#### 1. Adding a missing field:
+
+```java
+// In SupplyOrder.java
+private String orderStatus;
+
+@Size(max = 20)
+@NotNull
+@ColumnDefault("'PENDING'")
+@Column(name = "\"Order_Status\"", nullable = false, length = 20)
+public String getOrderStatus() {
+    return orderStatus;
+}
+
+public void setOrderStatus(String orderStatus) {
+    this.orderStatus = orderStatus;
+}
+```
+
+#### 2. Fixing a field name in a query:
+
+```java
+// Before
+@Query("SELECT n FROM Notification n WHERE n.read = false")
+List<Notification> findUnreadNotifications();
+
+// After
+@Query("SELECT n FROM Notification n WHERE n.isRead = false")
+List<Notification> findUnreadNotifications();
+```
+
+## Common Patterns to Look For
+
+- `is` prefixes for boolean fields (isActive, isDefault, isRead)
+- Field name capitalization in method names (findByCustomerAndproduct → findByCustomerAndProduct)
+- Plural vs. singular field names
+- References to status/state fields (orderStatus, orderState, etc.)
+
+## Testing Your Fixes
+
+After making changes:
+1. Recompile the application
+2. Run it with `mvn spring-boot:run`
+3. Check for any remaining errors
+4. Fix them using the same systematic approach
+
+Remember: Always maintain consistent naming conventions across your application to prevent these issues in the future. 

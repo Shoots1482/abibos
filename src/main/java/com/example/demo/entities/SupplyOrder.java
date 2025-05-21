@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -29,6 +30,8 @@ public class SupplyOrder {
     private BigDecimal price;
 
     private LocalDate orderDate;
+    
+    private String orderStatus;
 
     @Id
     @Column(name = "\"Supply_Order_ID\"", nullable = false)
@@ -77,5 +80,12 @@ public class SupplyOrder {
     public LocalDate getOrderDate() {
         return orderDate;
     }
-
+    
+    @Size(max = 20)
+    @NotNull
+    @ColumnDefault("'PENDING'")
+    @Column(name = "\"Order_Status\"", nullable = false, length = 20)
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 }

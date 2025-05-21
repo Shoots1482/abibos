@@ -21,7 +21,7 @@ public interface SupplierRepository extends JpaRepository<Supplier, Integer> {
     List<Supplier> findSuppliersWithProducts();
     
     // Find suppliers with active supply orders
-    @Query("SELECT DISTINCT s FROM Supplier s JOIN s.supplyOrders so WHERE so.status = 'PENDING' OR so.status = 'PROCESSING'")
+    @Query("SELECT DISTINCT s FROM Supplier s JOIN s.supplyOrders so WHERE so.orderStatus = 'PENDING' OR so.orderStatus = 'PROCESSING'")
     List<Supplier> findSuppliersWithActiveOrders();
     
     // Find suppliers without phone numbers
