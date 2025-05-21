@@ -1,6 +1,6 @@
 # Clothing Store E-Commerce Platform
 
-A full-featured e-commerce platform for clothing retail developed with Java Spring Boot and JPA.
+A full-featured e-commerce platform for clothing retail developed with Java Spring Boot and React.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -8,6 +8,7 @@ A full-featured e-commerce platform for clothing retail developed with Java Spri
 - [Technology Stack](#technology-stack)
 - [Features](#features)
 - [Installation](#installation)
+- [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
 - [License](#license)
 
@@ -61,12 +62,20 @@ The database contains 30 tables with appropriate foreign key relationships and c
 
 ## Technology Stack
 
-- **Backend**: Java 17, Spring Boot 3.x
-- **ORM**: Hibernate with JPA Buddy
+### Backend
+- **Language**: Java 17
+- **Framework**: Spring Boot 3.x
+- **ORM**: Hibernate with JPA
 - **Database**: PostgreSQL
-- **API**: RESTful services with JSON
 - **Security**: Spring Security with JWT authentication
 - **Documentation**: Swagger/OpenAPI
+
+### Frontend
+- **Framework**: React 18
+- **Routing**: React Router 6
+- **HTTP Client**: Axios
+- **UI Framework**: Bootstrap 5
+- **State Management**: React Hooks
 
 ## Features
 
@@ -87,16 +96,10 @@ The database contains 30 tables with appropriate foreign key relationships and c
 - Java 17 or higher
 - PostgreSQL 12 or higher
 - Maven 3.6+
+- Node.js 14+ and npm 6+
 
-### Database Setup
-1. Create a PostgreSQL database
-2. Run the included schema creation script:
+### Backend Setup
 
-```bash
-psql -U postgres -d your_database_name -f schema.sql
-```
-
-### Application Configuration
 1. Clone the repository:
 ```bash
 git clone https://github.com/your-username/clothing-store.git
@@ -105,27 +108,60 @@ cd clothing-store
 
 2. Configure database connection in `src/main/resources/application.properties`:
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/your_database_name
+spring.datasource.url=jdbc:postgresql://localhost:5432/clothing_store_db
 spring.datasource.username=your_username
 spring.datasource.password=your_password
-spring.jpa.hibernate.ddl-auto=validate
 ```
 
-3. Build the application:
+3. Create the PostgreSQL database:
+```bash
+createdb clothing_store_db
+```
+
+4. Build the backend application:
 ```bash
 mvn clean install
 ```
 
-4. Run the application:
+### Frontend Setup
+
+1. Navigate to the frontend directory:
 ```bash
-java -jar target/clothing-store-0.0.1-SNAPSHOT.jar
+cd frontend
 ```
 
-The application will be available at http://localhost:8080
+2. Install dependencies:
+```bash
+npm install
+```
+
+## Running the Application
+
+### Running the Backend
+
+Start the Spring Boot application:
+
+```bash
+# From the root directory
+mvn spring-boot:run
+```
+
+The backend API will be available at http://localhost:8080/api
+
+### Running the Frontend
+
+Start the React development server:
+
+```bash
+# From the frontend directory
+npm start
+```
+
+The frontend application will be available at http://localhost:3000
 
 ## API Documentation
 
-API documentation is available via Swagger UI at http://localhost:8080/swagger-ui.html after starting the application.
+API documentation is available via Swagger UI at http://localhost:8080/swagger-ui.html after starting the backend application.
 
 ## License
 
