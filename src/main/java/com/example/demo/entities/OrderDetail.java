@@ -28,6 +28,8 @@ public class OrderDetail {
 
     private BigDecimal finalPrice;
 
+    private BigDecimal price;
+
     @EmbeddedId
     public OrderDetailId getId() {
         return id;
@@ -73,14 +75,20 @@ public class OrderDetail {
         return finalPrice;
     }
 
+    @Transient
     public BigDecimal getPrice() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPrice'");
+        return finalPrice;
     }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+        // You might want to update finalPrice or another field based on this
+        this.finalPrice = price;
+    }
+
+    @Transient
     public BigDecimal getUnitPrice() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getUnitPrice'");
     }
-
 }
