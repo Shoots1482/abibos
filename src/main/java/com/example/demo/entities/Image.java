@@ -17,6 +17,8 @@ public class Image {
     private Product product;
 
     private String imageUrl;
+    
+    private Boolean isPrimary = false;
 
     @Id
     @Column(name = "\"Image_ID\"", nullable = false)
@@ -37,10 +39,17 @@ public class Image {
     public String getImageUrl() {
         return imageUrl;
     }
-
-    public void setPrimary(boolean b) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPrimary'");
+    
+    @Column(name = "\"Is_Primary\"", nullable = false)
+    public Boolean getIsPrimary() {
+        return isPrimary;
+    }
+    
+    public void setIsPrimary(Boolean isPrimary) {
+        this.isPrimary = isPrimary;
     }
 
+    public void setPrimary(boolean b) {
+        this.isPrimary = b;
+    }
 }
