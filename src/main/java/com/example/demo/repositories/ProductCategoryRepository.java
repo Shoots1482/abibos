@@ -32,7 +32,7 @@ public interface ProductCategoryRepository extends JpaRepository<Product, Intege
     List<Product> searchProducts(@Param("query") String query);
     
     // Category queries
-    @Query("SELECT p FROM Product p JOIN p.categories c WHERE c.id = :categoryId")
+    @Query("SELECT p FROM Product p JOIN p.productCategories pc WHERE pc.category.id = :categoryId")
     List<Product> findByCategoryId(@Param("categoryId") Integer categoryId);
     
     // Supplier queries
