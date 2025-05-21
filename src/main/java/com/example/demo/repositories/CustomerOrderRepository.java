@@ -22,7 +22,7 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, In
     List<CustomerOrder> findByEmployeeSellerId(Integer employeeId);
     List<CustomerOrder> findByAddressId(Integer addressId);
     
-    @Query("SELECT o FROM CustomerOrder o WHERE o.returnDate IS NOT NULL")
+    @Query("SELECT DISTINCT o FROM CustomerOrder o JOIN o.returnFields r WHERE r IS NOT NULL")
     List<CustomerOrder> findOrdersWithReturns();
     
     List<CustomerOrder> findByCustomer(Customer customer);
