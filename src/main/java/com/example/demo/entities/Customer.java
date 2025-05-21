@@ -137,6 +137,7 @@ public class Customer {
     }
 
     // For compatibility with boolean property conventions
+    @Transient
     public boolean isActive() {
         return active;
     }
