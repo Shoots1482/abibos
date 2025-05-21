@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Optional<Category> findByCategoryName(String name);
-    List<Category> findByCategoryNameContainingAndIgnoreCase(String keyword);
+    List<Category> findByCategoryNameContainingIgnoreCase(String keyword);
     boolean existsByCategoryName(String name);
     
     @Query("SELECT c FROM Category c WHERE SIZE(c.productCategories) > 0")
