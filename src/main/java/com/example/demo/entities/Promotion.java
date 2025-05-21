@@ -34,6 +34,8 @@ public class Promotion {
     private Boolean isActive = false;
 
     private Integer maxUses;
+    
+    private BigDecimal discountRate;
 
     private Set<CustomerOrder> customerOrders = new LinkedHashSet<>();
 
@@ -95,9 +97,12 @@ public class Promotion {
         return customerOrders;
     }
 
+    @Transient
     public BigDecimal getDiscountRate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDiscountRate'");
+        return discountPercentage != null ? discountPercentage.divide(new BigDecimal(100)) : null;
     }
-
+    
+    public void setDiscountRate(BigDecimal discountRate) {
+        this.discountRate = discountRate;
+    }
 }
