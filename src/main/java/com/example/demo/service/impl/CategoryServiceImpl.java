@@ -82,7 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Category not found with Id" + id));
 
-        if (!category.getProducts().isEmpty()) {
+        if (!category.getProductCategories().isEmpty()) {
             throw new IllegalStateException("Cannot delete category that has products");
         }
         categoryRepository.deleteById(id);

@@ -50,7 +50,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByPriceGreaterThanEqual(BigDecimal minPrice);
     
     // Find products by category
-    @Query("SELECT p FROM Product p JOIN p.categories c WHERE c = :category")
+    @Query("SELECT p FROM Product p JOIN p.productCategories pc WHERE pc.category = :category")
     List<Product> findByCategory(@Param("category") Category category);
     
     // Find products with reviews
@@ -70,7 +70,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Object[]> findTopSellingProducts();
     
     // Find products by multiple categories
-    @Query("SELECT DISTINCT p FROM Product p JOIN p.categories c WHERE c IN :categories")
+    @Query("SELECT DISTINCT p FROM Product p JOIN p.productCategories pc WHERE pc.category IN :categories")
     List<Product> findByCategories(@Param("categories") List<Category> categories);
     
     // Find products by brand and price range

@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
         product.setIsActive(true);
         
         // Initialize sets
-        product.setCategories(new HashSet<>());
+        product.setProductCategories(new HashSet<>());
         product.setImages(new HashSet<>());
         product.setCarts(new HashSet<>());
         product.setNotifications(new HashSet<>());
@@ -234,7 +234,16 @@ public class ProductServiceImpl implements ProductService {
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             if (category != null) {
-                product.getCategories().add(category);
+                // Create a new ProductCategory relationship
+                ProductCategory productCategory = new ProductCategory();
+                ProductCategoryId id = new ProductCategoryId();
+                id.setProductId(product.getId());
+                id.setCategoryId(category.getId());
+                productCategory.setId(id);
+                productCategory.setProduct(product);
+                productCategory.setCategory(category);
+                
+                product.getProductCategories().add(productCategory);
                 return productRepository.save(product);
             } else {
                 throw new IllegalArgumentException("Category cannot be null");
@@ -252,7 +261,9 @@ public class ProductServiceImpl implements ProductService {
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             if (category != null) {
-                product.getCategories().remove(category);
+                // Find and remove the ProductCategory relationship
+                product.getProductCategories().removeIf(pc -> 
+                    pc.getCategory().getId().equals(category.getId()));
                 return productRepository.save(product);
             } else {
                 throw new IllegalArgumentException("Category cannot be null");
@@ -267,7 +278,14 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         
         if (optionalProduct.isPresent()) {
-            return optionalProduct.get().getCategories();
+            Product product = optionalProduct.get();
+            Set<Category> categories = new HashSet<>();
+            
+            for (ProductCategory pc : product.getProductCategories()) {
+                categories.add(pc.getCategory());
+            }
+            
+            return categories;
         }
         
         throw new IllegalArgumentException("Product not found with ID: " + productId);

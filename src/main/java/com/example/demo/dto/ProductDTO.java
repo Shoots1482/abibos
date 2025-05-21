@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.entities.Product;
+import com.example.demo.entities.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
@@ -68,9 +69,9 @@ public class ProductDTO {
             return null;
         }
         
-        List<CategoryDTO> categoryDTOs = product.getCategories() != null
-                ? product.getCategories().stream()
-                    .map(CategoryDTO::fromEntity)
+        List<CategoryDTO> categoryDTOs = product.getProductCategories() != null
+                ? product.getProductCategories().stream()
+                    .map(pc -> CategoryDTO.fromEntity(pc.getCategory()))
                     .collect(Collectors.toList())
                 : Collections.emptyList();
         
