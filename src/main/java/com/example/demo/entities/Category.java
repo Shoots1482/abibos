@@ -18,7 +18,7 @@ public class Category {
 
     private String categoryName;
 
-    private Set<Product> products = new LinkedHashSet<>();
+    private Set<ProductCategory> productCategories = new LinkedHashSet<>();
 
     @Id
     @Column(name = "\"Category_ID\"", nullable = false)
@@ -33,12 +33,8 @@ public class Category {
         return categoryName;
     }
 
-    @ManyToMany
-    @JoinTable(name = "Product_Categories",
-            joinColumns = @JoinColumn(name = "Category_ID"),
-            inverseJoinColumns = @JoinColumn(name = "Product_ID"))
-    public Set<Product> getProducts() {
-        return products;
+    @OneToMany(mappedBy = "category")
+    public Set<ProductCategory> getProductCategories() {
+        return productCategories;
     }
-
 }

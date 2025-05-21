@@ -49,7 +49,7 @@ public class Product {
 
     private Set<PriceHistory> priceHistories = new LinkedHashSet<>();
 
-    private Set<Category> categories = new LinkedHashSet<>();
+    private Set<ProductCategory> productCategories = new LinkedHashSet<>();
 
     private Set<ReservedStock> reservedStocks = new LinkedHashSet<>();
 
@@ -154,9 +154,9 @@ public class Product {
         return priceHistories;
     }
 
-    @ManyToMany
-    public Set<Category> getCategories() {
-        return categories;
+    @OneToMany(mappedBy = "product")
+    public Set<ProductCategory> getProductCategories() {
+        return productCategories;
     }
 
     @OneToMany(mappedBy = "product")
@@ -188,5 +188,4 @@ public class Product {
     public Set<Wishlist> getWishlists() {
         return wishlists;
     }
-
 }
