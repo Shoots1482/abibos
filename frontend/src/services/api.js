@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = '/api';
-const AUTH_URL = '/auth';
+const AUTH_URL = `${API_URL}/auth`;
 
 // Create axios instance with base URL
 const api = axios.create({
