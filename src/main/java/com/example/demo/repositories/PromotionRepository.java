@@ -20,8 +20,9 @@ public interface PromotionRepository extends JpaRepository<Promotion, Integer> {
     // Find active promotions
     List<Promotion> findByIsActiveTrue();
     
-    // Find promotions by date range
-    List<Promotion> findByStartDateLessThanEqualAndEndDateGreaterThanEqual(LocalDate date);
+    // Find promotions by date range (active on a specific date)
+    @Query("SELECT p FROM Promotion p WHERE p.startDate <= :date AND p.endDate >= :date")
+    List<Promotion> findByStartDateLessThanEqualAndEndDateGreaterThanEqual(@Param("date") LocalDate date);
     
     // Find current active promotions (within date range and active)
     @Query("SELECT p FROM Promotion p WHERE " +
