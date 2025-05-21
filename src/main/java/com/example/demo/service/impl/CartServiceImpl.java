@@ -45,7 +45,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Optional<Cart> getCartByCustomerAndProduct(Customer customer, Product product) {
-        return cartRepository.findByCustomerAndproduct(customer, product);
+        return cartRepository.findByCustomerAndProduct(customer, product);
     }
 
     @Override

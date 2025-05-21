@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(readOnly = true)
     public List<Category> findByCategoryNameContainingIgnoreCase(String keyword) {
-        return categoryRepository.findByCategoryNameContainingAndIgnoreCase(keyword);
+        return categoryRepository.findByCategoryNameContainingIgnoreCase(keyword);
     }
 
     @Override
