@@ -21,18 +21,18 @@ public interface StorageRepository extends JpaRepository<Storage, Integer> {
     List<Storage> findByLocationContaining(String locationKeyword);
     
     // Find storage areas that need reordering (where current stock is below reorder level)
-    @Query("SELECT s FROM Storage s WHERE s.id IN " +
-           "(SELECT i.storageId FROM Inventory i WHERE i.quantity <= s.reorderLevel)")
+    @Query("SELECT s FROM Storage s WHERE EXISTS " +
+           "(SELECT si FROM StoreInventory si WHERE si.store.id = s.store.id AND si.quantity <= s.reorderLevel)")
     List<Storage> findStorageNeedingReorder();
     
     // Find storage areas at full capacity
-    @Query("SELECT s FROM Storage s WHERE s.id IN " +
-           "(SELECT i.storageId FROM Inventory i WHERE i.quantity >= s.maxStock)")
+    @Query("SELECT s FROM Storage s WHERE EXISTS " +
+           "(SELECT si FROM StoreInventory si WHERE si.store.id = s.store.id AND si.quantity >= s.maxStock)")
     List<Storage> findStorageAtCapacity();
     
     // Find storage areas with low stock
-    @Query("SELECT s FROM Storage s WHERE s.id IN " +
-           "(SELECT i.storageId FROM Inventory i WHERE i.quantity <= s.minStock)")
+    @Query("SELECT s FROM Storage s WHERE EXISTS " +
+           "(SELECT si FROM StoreInventory si WHERE si.store.id = s.store.id AND si.quantity <= s.minStock)")
     List<Storage> findStorageWithLowStock();
     
     // Find by store and location
