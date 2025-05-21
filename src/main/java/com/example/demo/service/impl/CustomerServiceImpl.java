@@ -7,6 +7,7 @@ import com.example.demo.repositories.CustomerOrderRepository;
 import com.example.demo.service.CustomerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
