@@ -51,15 +51,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest) {
-        if (userService.existsByEmail(registerRequest.getEmail())) {
+        if (userService.isEmailTaken(registerRequest.getEmail())) {
             throw new BadRequestException("Email is already taken");
         }
 
         User user = userService.createUser(
+                null,  // Customer object is set to null for now
                 registerRequest.getEmail(),
                 registerRequest.getPassword(),
-                registerRequest.getFirstName(),
-                registerRequest.getLastName()
+                "ROLE_USER" // Default role for registered users
         );
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
